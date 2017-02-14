@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c1b517b2056a548889d4f76663072c25
+timeCreated: 1487074576
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Fuwa Fude
+  fontNames:
+  - Fuwa Fude
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
