@@ -16,6 +16,7 @@ public class ScenarioManager : MonoBehaviour{
 
 	TextController textController;
 	CommandController commandController;
+	TapObjectSerche tapObjectSerche;
 
 	/// <summary>
 	/// シナリオを順番に格納したもの
@@ -107,26 +108,31 @@ public class ScenarioManager : MonoBehaviour{
 	void Start () {
 		textController = GetComponent<TextController>();
 		commandController = GetComponent<CommandController>();
+		tapObjectSerche = gameObject.AddComponent<TapObjectSerche> ();
 
 		UpdateLines(loadFileName);
 		RequestNextLine();
 	}
 
 	void Update () {
-		if(textController.IsCompleteDisplayText ) {
-			if(index < ScenarioList.Length) {
-				if( !isCallPreload ) {
-					commandController.PreLoadCommand(ScenarioList[index]);
+		if (textController.IsCompleteDisplayText) {
+			if (index < ScenarioList.Length) {
+				if (!isCallPreload) {
+					commandController.PreLoadCommand (ScenarioList [index]);
 					isCallPreload = true;
 				}
-				if( Input.GetMouseButtonDown(0)) {
-					RequestNextLine();
+				if (tapObjectSerche.getClickObject () != null) {
+					if (Input.GetMouseButtonDown (0) && tapObjectSerche.getClickObject ().name.ToString () == "TapPanel") {
+						RequestNextLine ();
+					}
 				}
 			}
-		}else{
-			if(Input.GetMouseButtonDown(0)) {
-				textController.ForceCompleteDisplayText();
+		} else {
+			if (tapObjectSerche.getClickObject () != null) {
+				if (Input.GetMouseButtonDown (0) && tapObjectSerche.getClickObject ().name.ToString () == "TapPanel") {
+					textController.ForceCompleteDisplayText ();
+				}
 			}
 		}
-	}
+	}	
 }

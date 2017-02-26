@@ -2,15 +2,15 @@
 /// タイトル：実は難しいプロジェクトリーダー
 /// ios,androidアプリ
 /// フレームワーク:Unity
-/// Title画面からSelect画面への遷移
+/// Startボタンを押した時の処理
 ///////////////////////////////////////
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TapScreen : MonoBehaviour {
+public class TapStartButton : MonoBehaviour {
 	public void onTap(){
-		SceneController.Instance.SceneLoad ("Select", 1.0f);
+		SceneController.Instance.SceneLoad ("Main", 1.0f);
 	}
 }
