@@ -12,23 +12,43 @@ using UnityEngine.UI;
 
 public class MenuBarMotion : MonoBehaviour {
 
+	/// <summary>
+	/// アニメーション
+	/// </summary>
 	public AnimationCurve animCurve = AnimationCurve.Linear (0, 0, 1, 1);
+	/// <summary>
+	/// スライドインの後のポジション
+	/// </summary>
 	public Vector3 inPosition;
+	/// <summary>
+	/// スライドアウトの後のポジション
+	/// </summary>
 	public Vector3 outPosition;
+	/// <summary>
+	/// スライド時間
+	/// </summary>
 	public float slideTime;
 
+	/// <summary>
+	/// スライドイン
+	/// </summary>
 	public void SlideIn(){
 		StartCoroutine (StartSlidePanel (true));
 	}
 
+	/// <summary>
+	/// スライドアウト
+	/// </summary>
 	public void SlideOut(){
 		StartCoroutine (StartSlidePanel (false));
 	}
 
 	private IEnumerator StartSlidePanel(bool isSlideIn){
-		Debug.Log ("a");
+		// 開始時間
 		float startTime = Time.time;
+		// 開始位置
 		Vector3 startPos = transform.localPosition;
+		// 移動距離、方向
 		Vector3 moveDistance;
 
 		if (isSlideIn) {

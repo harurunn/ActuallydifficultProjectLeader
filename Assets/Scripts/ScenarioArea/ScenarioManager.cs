@@ -11,12 +11,15 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Text;
+using UnityEngine.UI;
 
 public class ScenarioManager : MonoBehaviour{
 
 	TextController textController;
 	CommandController commandController;
-	TapObjectSerche tapObjectSerche;
+
+	[SerializeField]
+	Button nextMessageButton;
 
 	/// <summary>
 	/// シナリオを順番に格納したもの
@@ -34,6 +37,10 @@ public class ScenarioManager : MonoBehaviour{
 	/// 読み込むシナリオファイルの名前
 	/// </summary>
 	public string loadFileName = "notProgress";
+	/// <summary>
+	/// 文字送りを行うかどうか
+	/// </summary>
+	bool nextMessage = false;
 
 	/// <summary>
 	/// 次のメッセージを読み込む
@@ -105,10 +112,16 @@ public class ScenarioManager : MonoBehaviour{
 		return lineBuilder.ToString ();
 	}
 
+	//　次のシナリオを呼び出すためのボタンをタップしたかどうか
+	void NextLineTap(){
+		nextMessage = true;
+	}
+
 	void Start () {
 		textController = GetComponent<TextController>();
 		commandController = GetComponent<CommandController>();
-		tapObjectSerche = gameObject.AddComponent<TapObjectSerche> ();
+
+		nextMessageButton.onClick.AddListener (NextLineTap);
 
 		UpdateLines(loadFileName);
 		RequestNextLine();
@@ -121,17 +134,15 @@ public class ScenarioManager : MonoBehaviour{
 					commandController.PreLoadCommand (ScenarioList [index]);
 					isCallPreload = true;
 				}
-				if (tapObjectSerche.getClickObject () != null) {
-					if (Input.GetMouseButtonDown (0) && tapObjectSerche.getClickObject ().name.ToString () == "TapPanel") {
-						RequestNextLine ();
-					}
+				if ( !!nextMessage ) {
+					nextMessage = false;
+					RequestNextLine ();
 				}
 			}
 		} else {
-			if (tapObjectSerche.getClickObject () != null) {
-				if (Input.GetMouseButtonDown (0) && tapObjectSerche.getClickObject ().name.ToString () == "TapPanel") {
-					textController.ForceCompleteDisplayText ();
-				}
+			if ( !!nextMessage ) {
+				nextMessage = false;
+				textController.ForceCompleteDisplayText ();
 			}
 		}
 	}	
